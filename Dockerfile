@@ -8,9 +8,9 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Usuarios.ApiService/Usuarios.ApiService.csproj", "Usuarios.ApiService/"]
-COPY ["Usuarios.Application/Usuarios.Application.csproj", "Usuarios.Application/"]
-COPY ["Usuarios.Domain/Usuarios.Domain.csproj", "Usuarios.Domain/"]
-COPY ["Usuarios.Infrastructure/Usuarios.Infrastructure.csproj", "Usuarios.Infrastructure/"]
+COPY ["Usuarios.Service.Application/Usuarios.Service.Application.csproj", "Usuarios.Service.Application/"]
+COPY ["Usuarios.Service.Domain/Usuarios.Service.Domain.csproj", "Usuarios.Domain/"]
+COPY ["Usuarios.Service.Infrastructure/Usuarios.Service.Infrastructure.csproj", "Usuarios.Service.Infrastructure/"]
 RUN dotnet restore "./Usuarios.ApiService/Usuarios.ApiService.csproj"
 COPY . .
 WORKDIR "/src/Usuarios.ApiService"
