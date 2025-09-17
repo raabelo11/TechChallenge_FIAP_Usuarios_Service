@@ -10,7 +10,7 @@ namespace Usuarios.Service.Application.DTOs
         public TipoUsuario TipoUsuario { get; set; }
     }
 
-    public class UsuarioGetDTO
+    public class UsuarioLoginDTO
     {
         public required string Email { get; set; }
         public required string Senha { get; set; }

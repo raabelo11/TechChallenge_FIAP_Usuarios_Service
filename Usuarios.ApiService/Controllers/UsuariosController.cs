@@ -20,6 +20,15 @@ namespace Usuarios.ApiService.Controllers
             return ret.Success ? Ok(ret) : BadRequest(ret);
         }
 
+        [HttpPost]
+        [Route("Login")]
+        [Consumes("application/json")]
+        public async Task<ActionResult> Login([FromBody] UsuarioLoginDTO usuarioLoginDTO)
+        {
+            var ret = await _usuariosUseCase.Login(usuarioLoginDTO);
+            return ret.Success ? Ok(ret) : BadRequest(ret);
+        }
+
         [HttpGet]
         [Route("Lista")]
         [Consumes("application/json")]

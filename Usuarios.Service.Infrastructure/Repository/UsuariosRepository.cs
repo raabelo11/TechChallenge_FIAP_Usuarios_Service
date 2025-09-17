@@ -16,6 +16,11 @@ namespace Usuarios.Service.Infrastructure.Repository
             return await _context.SaveChangesAsync() > 0;
         }
 
+        public async Task<Usuario?> GetUser(string email)
+        {
+            return await _context.Usuarios.AsNoTracking().FirstOrDefaultAsync(p => p.Email == email);
+        }
+
         public async Task<List<Usuario>> List(int id, string? nome, string? email, DateTime? dataDe, DateTime? dataAte, bool ativo, TipoUsuario? tipo)
         {
             var ret = await _context.Usuarios

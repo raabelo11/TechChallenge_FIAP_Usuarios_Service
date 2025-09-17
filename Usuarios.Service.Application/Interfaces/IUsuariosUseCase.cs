@@ -6,6 +6,7 @@ namespace Usuarios.Service.Application.Interfaces
     public interface IUsuariosUseCase
     {
         Task<GenericReturnDTO> CadastraUsuario(UsuarioDTO usuarioDTO);
+        Task<GenericReturnDTO> Login(UsuarioLoginDTO usuarioLoginDTO);
         Task<GenericReturnDTO> ListaUsuarios(int id, string? nome, string? email, DateTime? dataDe, DateTime? dataAte, bool ativo, TipoUsuario? tipo);
     }
 }
