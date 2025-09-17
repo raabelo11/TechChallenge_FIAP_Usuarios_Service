@@ -7,6 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
+using System.Linq.Expressions;
 
 namespace Usuarios.Service.Application.UseCases
 {
@@ -85,20 +86,31 @@ namespace Usuarios.Service.Application.UseCases
 
         public async Task<GenericReturnDTO> ListaUsuarios(int id, string? nome, string? email, DateTime? dataDe, DateTime? dataAte, bool ativo, TipoUsuario? tipo)
         {
-            var usuario = await _usuarioRepository.List(id, nome, email, dataDe, dataAte, ativo, tipo);
+            try
+            {
+                var usuario = await _usuarioRepository.List(id, nome, email, dataDe, dataAte, ativo, tipo);
 
-            if (usuario != null)
+                if (usuario != null)
+                    return new GenericReturnDTO
+                    {
+                        Success = true,
+                        Data = usuario
+                    };
+
                 return new GenericReturnDTO
                 {
                     Success = true,
-                    Data = usuario
+                    Data = "Nenhum usuário encontrado"
                 };
-
-            return new GenericReturnDTO
+            }
+            catch (Exception ex)
             {
-                Success = true,
-                Data = "Nenhum usuário encontrado"
-            };
+                return new GenericReturnDTO
+                {
+                    Success = false,
+                    Error = ex.Message
+                };
+            }
         }
 
         public string GenerateToken(Usuario usuario)
