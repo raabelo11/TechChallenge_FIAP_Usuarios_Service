@@ -7,13 +7,14 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
-using System.Linq.Expressions;
+using Microsoft.Extensions.Logging;
 
 namespace Usuarios.Service.Application.UseCases
 {
-    public class UsuariosUseCase(IUsuariosRepository usuarioRepository) : IUsuariosUseCase
+    public class UsuariosUseCase(IUsuariosRepository usuarioRepository, ILogger<UsuariosUseCase> logger) : IUsuariosUseCase
     {
         private readonly IUsuariosRepository _usuarioRepository = usuarioRepository;
+        private readonly ILogger<UsuariosUseCase> _logger = logger;
 
         public async Task<GenericReturnDTO> CadastraUsuario(UsuarioDTO usuarioDTO)
         {
