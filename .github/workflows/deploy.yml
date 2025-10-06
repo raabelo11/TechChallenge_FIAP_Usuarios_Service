@@ -53,4 +53,7 @@ jobs:
             docker pull z4lit0/fiapcloudgamingdockrepo:latest
             docker stop usuarios.service.api || true
             docker rm usuarios.service.api || true
-            docker run -d --name usuarios.service.api -p 5001:8080 z4lit0/fiapcloudgamingdockrepo:latest
+            docker run -d --name usuarios.service.api -p 5001:8080 \
+              -e "Jwt__Key=${{ secrets.JWT_KEY }}" \
+              z4lit0/fiapcloudgamingdockrepo:latest
+
