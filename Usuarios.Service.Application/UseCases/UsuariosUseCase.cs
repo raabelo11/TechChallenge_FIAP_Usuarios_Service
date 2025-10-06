@@ -8,13 +8,15 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
 
 namespace Usuarios.Service.Application.UseCases
 {
-    public class UsuariosUseCase(IUsuariosRepository usuarioRepository, ILogger<UsuariosUseCase> logger) : IUsuariosUseCase
+    public class UsuariosUseCase(IUsuariosRepository usuarioRepository, ILogger<UsuariosUseCase> logger, IConfiguration config) : IUsuariosUseCase
     {
         private readonly IUsuariosRepository _usuarioRepository = usuarioRepository;
         private readonly ILogger<UsuariosUseCase> _logger = logger;
+        private readonly IConfiguration _config = config;
 
         public async Task<GenericReturnDTO> CadastraUsuario(UsuarioDTO usuarioDTO)
         {
@@ -116,7 +118,7 @@ namespace Usuarios.Service.Application.UseCases
 
         public string GenerateToken(Usuario usuario)
         {
-            var secret = "SECRET_SECRETA_AQUI_7DFS78DFYFDSH7DFSHDFS7DFSD7FSHFDS87FHD";
+            var secret = _config["Jwt:Key"]!;
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
@@ -131,8 +133,8 @@ namespace Usuarios.Service.Application.UseCases
             };
 
             var token = new JwtSecurityToken(
-                issuer: "JWT_ISSUER",
-                audience: "JWT_AUDIENCE",
+                issuer: _config["Jwt:Issuer"]!,
+                audience: _config["Jwt:Audience"]!,
                 claims: claims,
                 expires: DateTime.UtcNow.AddMinutes(30),
                 signingCredentials: creds

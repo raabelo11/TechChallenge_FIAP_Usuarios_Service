@@ -36,5 +36,11 @@ namespace Usuarios.Service.Infrastructure.Repository
 
             return ret;
         }
+
+        public async Task<bool> Update(Usuario usuario)
+        {
+            _context.Usuarios.Update(usuario);
+            return await _context.SaveChangesAsync() > 0;
+        }
     }
 }
