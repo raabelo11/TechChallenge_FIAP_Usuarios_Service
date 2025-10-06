@@ -126,7 +126,7 @@ namespace Usuarios.Service.Application.UseCases
 
             var claims = new[]
             {
-                new Claim("UserId", usuario.IdUsuario.ToString()),
+                new Claim("Id", usuario.IdUsuario.ToString()),
                 new Claim("Email", usuario.Email.ToString()),
                 new Claim("NomeUsuario", usuario.NomeUsuario.ToString()),
                 new Claim("DataCadastro", usuario.DataCadastro.ToString())
