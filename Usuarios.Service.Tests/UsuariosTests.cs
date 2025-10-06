@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Usuarios.Service.Application.DTOs;
@@ -30,11 +31,12 @@ namespace Usuarios.Service.Tests
                 usuarioDTO.TipoUsuario
             );
 
+            var mockConfig = new Mock<IConfiguration>();
             var mockLog = new Mock<ILogger<UsuariosUseCase>>();
             var mockRepository = new Mock<IUsuariosRepository>();
             mockRepository.Setup(r => r.GetUser(usuarioDTO.Email)).ReturnsAsync(usuarioExistente);
 
-            var useCase = new UsuariosUseCase(mockRepository.Object, mockLog.Object);
+            var useCase = new UsuariosUseCase(mockRepository.Object, mockLog.Object, mockConfig.Object);
 
             // Act
             var result = await useCase.CadastraUsuario(usuarioDTO);
@@ -56,12 +58,13 @@ namespace Usuarios.Service.Tests
                 TipoUsuario = TipoUsuario.Usuario
             };
 
+            var mockConfig = new Mock<IConfiguration>();
             var mockLog = new Mock<ILogger<UsuariosUseCase>>();
             var mockRepository = new Mock<IUsuariosRepository>();
             mockRepository.Setup(r => r.GetUser(usuarioDTO.Email)).ReturnsAsync((Usuario?)null);
             mockRepository.Setup(r => r.Add(It.IsAny<Usuario>())).ReturnsAsync(true);
 
-            var useCase = new UsuariosUseCase(mockRepository.Object, mockLog.Object);
+            var useCase = new UsuariosUseCase(mockRepository.Object, mockLog.Object, mockConfig.Object);
 
             // Act
             var result = await useCase.CadastraUsuario(usuarioDTO);
