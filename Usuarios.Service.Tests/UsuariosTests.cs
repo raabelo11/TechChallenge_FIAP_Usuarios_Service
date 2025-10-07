@@ -12,7 +12,7 @@ namespace Usuarios.Service.Tests
 {
     public class UsuariosTests
     {
-        [Fact(DisplayName = "Dado que o e-mail já existe, quando tentar criar um usuário, então deve retornar mensagem de e-mail duplicado")]
+        [Fact(DisplayName = "Dado que o email já existe, quando tentar criar um usuário, então deve retornar mensagem de e-mail duplicado")]
         public async Task ValidarCriacaoDeUsuarioComEmailJaExistenteNaBaseDeDados()
         {
             // Arrange
@@ -43,7 +43,7 @@ namespace Usuarios.Service.Tests
 
             // Assert
             Assert.False(result.Success);
-            Assert.Equal("Email já cadastrado, por favor escolha outro!", result.Error);
+            Assert.Equal("Email ja cadastrado por favor escolha outro", result.Error);
         }
 
         [Fact(DisplayName = "Dado que os dados do usuário são válidos, quando criar o usuário, então deve retornar sucesso")]

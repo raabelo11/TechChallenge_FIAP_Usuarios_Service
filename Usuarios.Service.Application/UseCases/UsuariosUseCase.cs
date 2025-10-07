@@ -32,7 +32,7 @@ namespace Usuarios.Service.Application.UseCases
                 return new GenericReturnDTO
                 {
                     Success = false,
-                    Error = "Email já cadastrado, por favor escolha outro!"
+                    Error = "Email ja cadastrado por favor escolha outro"
                 };
             }
 
