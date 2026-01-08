@@ -47,3 +47,37 @@ Configurações principais no `appsettings.Development.json`:
     }
   }
 }
+```
+## 🏗️ Arquitetura do fluxo do Kubernetes
+```
+                    +-----------------+
+                    |     Usuários     |
+                    |  (Clientes/Front)|
+                    +--------+--------+
+                             |
+                             v
+                    +-----------------+
+                    | LoadBalancer AWS|
+                    +--------+--------+
+                             |
+        ------------------------------------------------
+        |                      |                      |
+        v                      v                      v
+    AWS- EKS                AWS- EKS                AWS- EKS
++---------------+       +---------------+       +---------------+
+| Usuarios.svc  |       | Jogos.svc     |       | Pagamentos.svc|
+| (Deployment)  |       | (Deployment)  |       | (Deployment)  |
+| 1 - 3 Pods    |       | 1 - 3 Pods    |       | 1 - 3 Pods    |
++-------+-------+       +-------+-------+       +-------+-------+
+        |                       |                       |
+        v                       v                       v
+  +-----------+           +-----------+           +-----------+
+  |  Pod(s)   |           |  Pod(s)   |           |  Pod(s)   |
+  | Usuarios  |           | Jogos     |           | Pagamentos|
+  +-----------+           +-----------+           +-----------+
+        |                       |                       |
+        v                       v                       v
+   Banco de Dados          Banco de Dados          Banco de Dados
+   Independente            Independente            Independente
+
+```
